@@ -1,0 +1,24 @@
+services:
+  dev:
+    image: kevinnls/node_non-root
+    user: node
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    working_dir: /app
+    expose:
+      - "3000"
+    entrypoint: ["npm"]
+    command: "run dev"
+    env_file:
+      - .env.dev
+    networks:
+    - publicproxy
+
+volumes:
+  node_modules:
+
+networks:
+  publicproxy:
+    external: true
+    name: publicproxy
