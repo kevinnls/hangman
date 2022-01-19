@@ -6,19 +6,12 @@ services:
       - ./:/app
       - node_modules:/app/node_modules
     working_dir: /app
+    ports:
+      - "${NODE_DEV_PORT:-3000}:${NODE_DEV_PORT:-3000}"
     expose:
-      - "3000"
+      - "${NODE_DEV_PORT:-3000}"
     entrypoint: ["npm"]
-    command: "run dev"
-    env_file:
-      - .env.dev
-    networks:
-    - publicproxy
+    command: "run dev -- --host"
 
 volumes:
   node_modules:
-
-networks:
-  publicproxy:
-    external: true
-    name: publicproxy
