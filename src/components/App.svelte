@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ClueGrid from '../components/ClueGrid.svelte';
+	import LivesTracker from '../components/LivesTracker.svelte';
 	export let db;
 	let deck = db?.deck;
 
@@ -14,3 +15,4 @@
 </script>
 
 <ClueGrid />
+<LivesTracker bind:lostLivesCount maxLives={6} />
