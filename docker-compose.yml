@@ -1,6 +1,7 @@
 services:
   dev:
-    image: kevinnls/node_non-root
+    image: kevinnls/node_non-root:with-git
+    build: .
     user: node
     volumes:
       - ./:/app
