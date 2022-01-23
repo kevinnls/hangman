@@ -1,15 +1,15 @@
 :root {
-	--accent: orange;
-	--theme-light: orange;
-	--theme-dark: orange;
-	--bg-color: #303030;
-	--fg-color: #fafafa;
+	--accent: hsl(39, 100%, 50%);
+	--theme-light: hsl(39, 80%, 50%);
+	--theme-dark: hsl(39, 80%, 25%);
+	--bg-color: hsl(0, 0%, 19%);
+	--fg-color: hsl(0, 0%, 98%);
 }
 
 @media (prefers-color-scheme: light) {
 	:root {
-		--bg-color:  #fafafa;
-		--fg-color: #303030;
+		--bg-color: hsl(0, 0%, 98%);
+		--fg-color: hsl(0, 0%, 19%);
 	}
 }
 
@@ -33,5 +33,11 @@ body > div#svelte {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+}
+
+@media (prefers-reduced-motion: reduced) {
+	body {
+		scroll-behavior: auto;
+	}
 }
