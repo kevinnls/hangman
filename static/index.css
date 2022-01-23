@@ -1,12 +1,31 @@
+:root {
+	--accent: orange;
+	--theme-light: orange;
+	--theme-dark: orange;
+	--bg-color: #303030;
+	--fg-color: #fafafa;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg-color:  #fafafa;
+		--fg-color: #303030;
+	}
+}
+
 html {
 	color-scheme: light dark;
 	height: 100%;
 }
+
 body {
 	margin: 0;
 	padding: 0;
 	height: 100%;
 	box-sizing: border-box;
+	background-color: var(--bg-color);
+	color: var(--fg-color);
+	scroll-behavior: smooth;
 }
 
 body > div#svelte {
