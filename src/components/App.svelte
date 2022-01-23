@@ -1,6 +1,8 @@
 <script lang="ts">
 	import ClueGrid from '../components/ClueGrid.svelte';
 	import LivesTracker from '../components/LivesTracker.svelte';
+	import WordDashes from '../components/WordDashes.svelte';
+
 	export let db;
 	let deck = db?.deck;
 
@@ -16,3 +18,4 @@
 
 <ClueGrid />
 <LivesTracker bind:lostLivesCount maxLives={6} />
+<WordDashes bind:word={wordInProgress} />
