@@ -1,9 +1,12 @@
 <script>
 	export let word;
+	export let guessedLetters;
+	$: regex = new RegExp(`[^${guessedLetters.join('')}]`, 'ig');
+	$: _word = word.replaceAll(regex, '_');
 </script>
 
 <section>
-	{#each word as letter (Math.random())}
+	{#each _word as letter (Math.random())}
 		<span>{letter.toUpperCase() ?? '_'}</span>
 	{/each}
 </section>
