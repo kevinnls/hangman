@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ClueGrid from '../components/ClueGrid.svelte';
 	export let db;
 	let deck = db?.deck;
 
@@ -11,3 +12,5 @@
 
 	let lostLivesCount = 0;
 </script>
+
+<ClueGrid />
