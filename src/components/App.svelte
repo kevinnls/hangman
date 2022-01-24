@@ -41,6 +41,7 @@
 			if (e.altKey || e.ctrlKey || e.metaKey) return true;
 			if (!isNaN(Number(e.key))) return true;
 			if (e.key.search(/\W/gi) !== -1) return true;
+			if (guessedLetters.includes(e.key)) return true;
 
 			return false;
 		}
