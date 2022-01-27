@@ -5,7 +5,8 @@
 			"name": "Kevin Samuel",
 			"email": "developer@kevinnlsamuel.com"
 		},
-		"ordered": true
+		"ordered": true,
+		"maxLives": 6
 	},
 	"deck": [
 		{
@@ -13,7 +14,7 @@
 			"clues": [
 				{
 					"type": "text",
-					"clue": "an expression of joy"
+					"clue": "an expression of consent"
 				},
 				{
 					"type": "image",

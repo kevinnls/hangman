@@ -5,22 +5,27 @@
 	import LivesTracker from '../components/LivesTracker.svelte';
 	import WordDashes from '../components/WordDashes.svelte';
 
-	if (browser) window.addEventListener('keypress', handleKeyPress);
+	import { appState } from '../stores/appState';
+	import { keyInputHandler } from '../utils/keyInputHandler';
+
+	if (browser) window.addEventListener('keypress', keyInputHandler);
 
 	export let db;
 	let deck = db?.deck;
 
-	let lostLivesCount;
-	let foundLettersCount;
+	let lostLivesCount = 0;
+	let foundLettersCount = 0;
 
 	let randomIndex: number = Math.floor(Math.random() * deck.length);
 	let currentWord = deck[randomIndex].word.toLowerCase();
+	appState.setWord(currentWord);
+
 	let guessedLetters = [];
 
-	reset();
-
-	$: isLoss = lostLivesCount === 6;
-	$: isWin = foundLettersCount === new Set(currentWord).size;
+	$: isLoss = $appState.current.lostLifeCount === 6;
+	$: isWin =
+		$appState.current.guessedLetters.correct.length === new Set($appState.current.word).size;
+	$: console.log(isWin)
 	$: if (isWin) {
 		//if (browser) alert('win!');
 		reset();
@@ -30,23 +35,8 @@
 		reset();
 	}
 
-	function handleKeyPress(e: KeyboardEvent) {
-		if (invalidKey(e)) return;
-		const guessedLetter = e.key;
-		guessedLetters = [guessedLetter, ...guessedLetters];
-		if (currentWord.search(guessedLetter) !== -1) foundLettersCount++;
-		else lostLivesCount++;
-
-		function invalidKey(e: KeyboardEvent) {
-			if (e.altKey || e.ctrlKey || e.metaKey) return true;
-			if (!isNaN(Number(e.key))) return true;
-			if (e.key.search(/\W/gi) !== -1) return true;
-			if (guessedLetters.includes(e.key)) return true;
-
-			return false;
-		}
-	}
 	function reset() {
+		appState.reset('victory')
 		guessedLetters = [];
 		lostLivesCount = 0;
 		foundLettersCount = 0;
@@ -54,5 +44,8 @@
 </script>
 
 <ClueGrid />
-<LivesTracker bind:lostLivesCount maxLives={6} />
-<WordDashes word={currentWord} bind:guessedLetters />
+<LivesTracker
+	lostLivesCount={$appState.current.lostLifeCount}
+	maxLives={$appState.current.maxLives || db.meta.maxLives}
+/>
+<WordDashes word={currentWord} guessedLetters={$appState.current.guessedLetters.correct} />
