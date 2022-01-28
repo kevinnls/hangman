@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Hangman: but customisable" />
+		<link rel="icon" href="/hangman/favicon.png" />
+		<link rel="stylesheet" href="/hangman/index.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+	<link rel="modulepreload" href="/hangman/_app/start-55e5956f.js">
+	<link rel="modulepreload" href="/hangman/_app/chunks/vendor-d3f310e6.js">
+			<script type="module">
+				import { start } from "/hangman/_app/start-55e5956f.js";
+				start({
+					target: document.querySelector("#svelte"),
+					paths: {"base":"/hangman","assets":"/hangman"},
+					session: {},
+					route: true,
+					spa: true,
+					trailing_slash: "never",
+					hydrate: null
+				});
+			</script>
+	</head>
+	<body>
+		<div id="svelte"></div>
+	</body>
+</html>

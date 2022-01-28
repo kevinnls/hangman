@@ -1,0 +1,43 @@
+:root {
+	--accent: hsl(39, 100%, 50%);
+	--theme-light: hsl(39, 80%, 50%);
+	--theme-dark: hsl(39, 80%, 25%);
+	--bg-color: hsl(0, 0%, 19%);
+	--fg-color: hsl(0, 0%, 98%);
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg-color: hsl(0, 0%, 98%);
+		--fg-color: hsl(0, 0%, 19%);
+	}
+}
+
+html {
+	color-scheme: light dark;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	box-sizing: border-box;
+	background-color: var(--bg-color);
+	color: var(--fg-color);
+	scroll-behavior: smooth;
+}
+
+body > div#svelte {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+@media (prefers-reduced-motion: reduced) {
+	body {
+		scroll-behavior: auto;
+	}
+}
