@@ -11,7 +11,7 @@ const config = {
 
 	kit: {
 		adapter: adapter({ fallback: '404.html' }),
-		paths: dev ? '' : '/hangman',
+		paths: { base: dev ? '' : '/hangman' },
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte'
