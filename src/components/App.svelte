@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-
 	import ClueGrid from '../components/ClueGrid.svelte';
 	import LivesTracker from '../components/LivesTracker.svelte';
 	import WordDashes from '../components/WordDashes.svelte';
@@ -10,42 +9,27 @@
 
 	if (browser) window.addEventListener('keypress', keyInputHandler);
 
-	export let db;
-	let deck = db?.deck;
-
-	let lostLivesCount = 0;
-	let foundLettersCount = 0;
-
-	let randomIndex: number = Math.floor(Math.random() * deck.length);
-	let currentWord = deck[randomIndex].word.toLowerCase();
-	appState.setWord(currentWord);
-
-	let guessedLetters = [];
+	export let deck
+	export let maxLives
 
 	$: isLoss = $appState.current.lostLifeCount === 6;
 	$: isWin =
 		$appState.current.guessedLetters.correct.length === new Set($appState.current.word).size;
-	$: console.log(isWin)
+	$: console.log(isWin);
 	$: if (isWin) {
 		//if (browser) alert('win!');
-		reset();
+		appState.registerResult('w', deck.next().word)
 	}
 	$: if (isLoss) {
 		//if (browser) alert('loss!');
-		reset();
+		appState.registerResult('l', deck.next().word)
 	}
 
-	function reset() {
-		appState.reset('victory')
-		guessedLetters = [];
-		lostLivesCount = 0;
-		foundLettersCount = 0;
-	}
 </script>
 
 <ClueGrid />
 <LivesTracker
 	lostLivesCount={$appState.current.lostLifeCount}
-	maxLives={$appState.current.maxLives || db.meta.maxLives}
+	maxLives={$appState.maxLives || maxLives}
 />
-<WordDashes word={currentWord} guessedLetters={$appState.current.guessedLetters.correct} />
+<WordDashes word={$appState.current.word} guessedLetters={$appState.current.guessedLetters.correct} />

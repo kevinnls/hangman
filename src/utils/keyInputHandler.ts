@@ -8,25 +8,13 @@ export const keyInputHandler = (e: KeyboardEvent) => {
 	if (checkInvalidKeys(e)) return;
 
 	const guessedLetter = e.key;
-	let correctLetters = current.guessedLetters.correct; 
-	let lostLifeCount = current.lostLifeCount;
 
-	if (current.word.search(guessedLetter) !== -1)
-		correctLetters.push(guessedLetter)
-	else lostLifeCount++;
-
-	appState.updateCurrent({
-			lostLifeCount,
-			guessedLetters: {
-				all: [...current.guessedLetters.all, guessedLetter],
-				correct: correctLetters,
-			}
-		
-	});
+	let isCorrect = current.word.search(guessedLetter) !== -1;
+	appState.registerKeyPress(guessedLetter, isCorrect);
 
 	function checkInvalidKeys(e: KeyboardEvent) {
 		if (e.altKey || e.ctrlKey || e.metaKey) return true;
-		if (!/[a-zA-Z]/.test(e.key)) return true;
+		if (!/^[a-zA-Z]{1}$/.test(e.key)) return true;
 		if (current.guessedLetters.all.includes(e.key)) return true;
 
 		return false;

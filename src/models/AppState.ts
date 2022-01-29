@@ -1,7 +1,7 @@
 interface AppState {
 	maxLives: number,
 	score: {
-		losses: number;
+		rounds: number;
 		wins: number;
 	};
 	current: CurrentWordState;
@@ -17,9 +17,9 @@ interface CurrentWordState {
 }
 
 const defaultState: AppState = {
-	maxLives: 0,
+	maxLives: 6,
 	score: {
-		losses: 0,
+		rounds: 0,
 		wins: 0
 	},
 	current: {
