@@ -9,22 +9,21 @@
 
 	if (browser) window.addEventListener('keypress', keyInputHandler);
 
-	export let deck
-	export let maxLives
+	export let deck;
+	export let maxLives;
 
 	$: isLoss = $appState.current.lostLifeCount === 6;
 	$: isWin =
 		$appState.current.guessedLetters.correct.length === new Set($appState.current.word).size;
-	$: console.log(isWin);
+	//$: console.log(isWin);
 	$: if (isWin) {
 		//if (browser) alert('win!');
-		appState.registerResult('w', deck.next().word)
+		//appState.registerResult('w', deck.next().word)
 	}
 	$: if (isLoss) {
 		//if (browser) alert('loss!');
-		appState.registerResult('l', deck.next().word)
+		//appState.registerResult('l', deck.next().word)
 	}
-
 </script>
 
 <ClueGrid />
@@ -32,4 +31,7 @@
 	lostLivesCount={$appState.current.lostLifeCount}
 	maxLives={$appState.maxLives || maxLives}
 />
-<WordDashes word={$appState.current.word} guessedLetters={$appState.current.guessedLetters.correct} />
+<WordDashes
+	word={$appState.current.word}
+	guessedLetters={$appState.current.guessedLetters.correct}
+/>

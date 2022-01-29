@@ -1,5 +1,5 @@
 interface AppState {
-	maxLives: number,
+	maxLives: number;
 	score: {
 		rounds: number;
 		wins: number;
