@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-
+	import { GameState } from '../stores/GameState';
+	const gameState = GameState.Instance();
 	import ClueGrid from '../components/ClueGrid.svelte';
 	import LivesTracker from '../components/LivesTracker.svelte';
 	import WordDashes from '../components/WordDashes.svelte';
@@ -54,5 +55,5 @@
 </script>
 
 <ClueGrid />
-<LivesTracker bind:lostLivesCount maxLives={6} />
+<LivesTracker bind:lostLivesCount maxLives={$gameState.maxLives} />
 <WordDashes word={currentWord} bind:guessedLetters />

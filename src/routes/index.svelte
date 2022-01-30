@@ -3,8 +3,10 @@
 	import App from '../components/App.svelte';
 	import * as sampleDb from '../const/sampleDb.json';
 	import { Deck } from '../models/Deck';
+	import { GameState } from '../stores/GameState';
 
 	const deck = new Deck(sampleDb.deck, sampleDb.meta.ordered);
+	const gameState = GameState.Instance({ maxLives: sampleDb.meta.maxLives });
 </script>
 
 <header>

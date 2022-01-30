@@ -5,7 +5,8 @@
 			"name": "Kevin Samuel",
 			"email": "developer@kevinnlsamuel.com"
 		},
-		"ordered": true
+		"ordered": true,
+		"maxLives": 3
 	},
 	"deck": [
 		{
