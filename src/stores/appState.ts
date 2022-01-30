@@ -12,17 +12,13 @@ class AppStateManager {
 		this.update = update;
 		this.set = set;
 		this.defaults = defaults;
+		this.state = 'paused';
 		console.log(defaults);
-		this.subscribe((state) => {
-			if (state.current.guessedLetters.correct.length === new Set(state.current.word).size) {
-				console.log('registering a win');
-				this.registerResult('w', 'oops');
-			}
-		})
 	}
 
 	subscribe: (Subscriber, Invalidator?) => Unsubscriber;
 	update: (Updater) => void;
+	state: 'playing' | 'win' | 'loss' | 'paused';
 	set;
 	defaults;
 	registerKeyPress(key, correct: boolean = false) {
@@ -31,8 +27,18 @@ class AppStateManager {
 			newState.current.guessedLetters.all.push(key);
 			if (correct) newState.current.guessedLetters.correct.push(key);
 			if (!correct) ++newState.current.lostLifeCount;
+			[newState.state, newState.current.state] = this.checkResult(newState);
+			console.log(this.state);
 			return newState;
 		});
+	}
+	checkResult(_state: AppState) {
+		let app = 'playing';
+		let round = 'progress';
+		if (_state.current.guessedLetters.correct.length === new Set(_state.current.word).size)
+			round = 'win';
+		if (_state.current.lostLifeCount === _state.maxLives) round = 'loss';
+		return [app, round]
 	}
 	updateCurrent(_newValues: object) {
 		this.update((currentState) => {

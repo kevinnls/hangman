@@ -3,8 +3,9 @@ class Deck {
 	current: Card;
 	private currentIndex: number;
 	private shuffled: boolean;
-	constructor(cards, shuffle: boolean = false) {
+	constructor(cards, shuffle: boolean = true) {
 		this.cards = cards;
+		console.log(this.cards)
 		if (shuffle) this.shuffle();
 		this.current = this.cards[0];
 		this.currentIndex = 0;
@@ -20,6 +21,7 @@ class Deck {
 		this.shuffled = true;
 	}
 	next(): Card | 'ENDOFDECK' {
+		console.log(this.cards)
 		if (this.currentIndex + 1 < this.cards.length) {
 			this.current = this.cards[++this.currentIndex];
 			return this.current;

@@ -3,27 +3,17 @@
 	import ClueGrid from '../components/ClueGrid.svelte';
 	import LivesTracker from '../components/LivesTracker.svelte';
 	import WordDashes from '../components/WordDashes.svelte';
+	import PlayButton from '../components/PlayButton.svelte';
 
 	import { appState } from '../stores/appState';
 	import { keyInputHandler } from '../utils/keyInputHandler';
+import type { Deck } from 'src/models/Deck';
 
 	if (browser) window.addEventListener('keypress', keyInputHandler);
 
-	export let deck;
-	export let maxLives;
-
-	$: isLoss = $appState.current.lostLifeCount === 6;
-	$: isWin =
-		$appState.current.guessedLetters.correct.length === new Set($appState.current.word).size;
-	//$: console.log(isWin);
-	$: if (isWin) {
-		//if (browser) alert('win!');
-		//appState.registerResult('w', deck.next().word)
-	}
-	$: if (isLoss) {
-		//if (browser) alert('loss!');
-		//appState.registerResult('l', deck.next().word)
-	}
+	export let deck:Deck;
+	export let maxLives:number;
+	$: console.log(appState.state);
 </script>
 
 <ClueGrid />
@@ -35,3 +25,4 @@
 	word={$appState.current.word}
 	guessedLetters={$appState.current.guessedLetters.correct}
 />
+<PlayButton deck={deck} state={$appState.current.state} />

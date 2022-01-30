@@ -4,10 +4,12 @@ interface AppState {
 		rounds: number;
 		wins: number;
 	};
-	current: CurrentWordState;
+	current: CurrentRoundState;
+	state: 'playing' | 'paused' | 'ended';
 }
 
-interface CurrentWordState {
+interface CurrentRoundState {
+	state: 'win' | 'loss' | 'progress';
 	lostLifeCount: number;
 	word: string;
 	guessedLetters: {
@@ -17,12 +19,14 @@ interface CurrentWordState {
 }
 
 const defaultState: AppState = {
+	state: 'playing',
 	maxLives: 6,
 	score: {
 		rounds: 0,
 		wins: 0
 	},
 	current: {
+		state: 'progress',
 		lostLifeCount: 0,
 		word: 'hello',
 		guessedLetters: {
@@ -32,4 +36,4 @@ const defaultState: AppState = {
 	}
 };
 
-export { type CurrentWordState, type AppState, defaultState };
+export { type CurrentRoundState as CurrentWordState, type AppState, defaultState };
