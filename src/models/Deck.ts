@@ -1,6 +1,6 @@
 class Deck {
 	cards: Card[];
-	current: Card;
+	current: Card | EndCard;
 	private currentIndex: number;
 	private shuffled: boolean;
 	// TODO: `cards` needs to be validated and have a type
@@ -28,15 +28,13 @@ class Deck {
 	}
 }
 class Card {
-	_word: string;
+	private _word: string;
 	clues: Clue[];
 	get word() {
 		return this._word.toLowerCase();
 	}
 }
-class EndCard extends Card {
-	_word = 'ENDOFDECK';
-}
+class EndCard extends Card {}
 class Clue {
 	clueType: 'image' | 'text' | 'url';
 	clue: string;
