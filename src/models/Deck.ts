@@ -3,10 +3,10 @@ class Deck {
 	current: Card;
 	private currentIndex: number;
 	private shuffled: boolean;
-	constructor(cards, shuffle: boolean = true) {
-		this.cards = cards;
-		console.log(this.cards);
-		if (shuffle) this.shuffle();
+	// TODO: `cards` needs to be validated and have a type
+	constructor(cards: any, ordered = true) {
+		this.cards = { ...cards };
+		if (!ordered) this.shuffle();
 		this.current = this.cards[0];
 		this.currentIndex = 0;
 	}
@@ -20,7 +20,7 @@ class Deck {
 		}
 		this.shuffled = true;
 	}
-	next() {
+	next(): void {
 		console.log(this.cards);
 		if (this.currentIndex + 1 < this.cards.length) {
 			this.current = this.cards[++this.currentIndex] || new EndCard();
