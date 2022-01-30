@@ -4,13 +4,15 @@ interface RoundStateModel {
 	correctLetters: string[];
 	lostLifeCount: number;
 	state: 'win' | 'loss' | 'progress';
+	dashes: string;
 }
 const defaultRoundState: RoundStateModel = {
 	state: 'progress',
 	lostLifeCount: 0,
 	correctLetters: [],
 	guessedLetters: [],
-	word: ''
+	word: '',
+	dashes: ''
 };
 
 export { type RoundStateModel, defaultRoundState };

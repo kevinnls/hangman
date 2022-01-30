@@ -15,21 +15,36 @@ class RoundState {
 				//TODO: check if it's actually RoundStateModel
 				initialState = { ...defaultRoundState, ...localState };
 		}
+		initialState.dashes = this.calculateDashes(initialState.word, initialState.correctLetters);
 		({ subscribe: this.subscribe, update: this.update, set: this.set } = writable(initialState));
 		this.subscribe((currentState) => {
 			//write all changes to game state to localStorage
 			if (browser) localStorage.setItem('roundstate', JSON.stringify(currentState));
 		});
 	}
-	public registerKeyPress(key, isCorrect) {}
+	public registerKeyPress(key, isCorrect) {
+		this.update((_) => {
+			const newState = { ..._ };
+			newState.guessedLetters.push(key);
+			if (isCorrect) newState.correctLetters.push(key);
+			if (isCorrect) newState.dashes = this.calculateDashes(newState.word, newState.correctLetters);
+			return newState;
+		});
+	}
 	public setWord(word) {
 		this.update((_) => {
 			return { ..._, word: word };
 		});
 	}
 	subscribe;
-	update;
-	set;
+	private update;
+	private set;
+	//private _dashes: string;
+	private calculateDashes(word: string, correctLetters: string[]): string {
+		const regex = new RegExp(`[^${correctLetters.join('')}]`, 'ig');
+
+		return word.replaceAll(regex, '_');
+	}
 }
 
 export { RoundState };
