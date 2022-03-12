@@ -1,15 +1,16 @@
 import { RoundState } from '../stores/RoundState';
+import { GameState } from '../stores/GameState';
 
-export function keyInputHandler(e: KeyboardEvent) {
-	let current;
+export function keyInputHandler(e: KeyboardEvent): void {
+	const current = RoundState.getCurrent();
 	const roundState = RoundState.Instance();
-	roundState.subscribe((updatedState) => (current = updatedState))();
 
+	if (current.lostLifeCount === GameState.getCurrent().maxLives) return;
 	if (checkInvalidKeys(e)) return;
 
 	const guessedLetter = e.key;
 
-	let isCorrect = current.word.search(guessedLetter) !== -1;
+	const isCorrect = current.word.search(guessedLetter) !== -1;
 	roundState.registerKeyPress(guessedLetter, isCorrect);
 
 	function checkInvalidKeys(e: KeyboardEvent) {
