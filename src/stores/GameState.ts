@@ -6,6 +6,11 @@ class GameState {
 	public static Instance(args: Partial<GameStateModel> = defaultGameState): GameState {
 		return this._instance || (this._instance = new this(args));
 	}
+	public static getCurrent(): GameStateModel {
+		let _currentState;
+		GameState.Instance().subscribe((_) => (_currentState = _))();
+		return _currentState;
+	}
 	private constructor(defaultState: Partial<GameStateModel> = defaultGameState) {
 		let initialState = { ...defaultGameState, ...defaultState };
 		let localState = null;

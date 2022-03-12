@@ -6,6 +6,11 @@ class RoundState {
 	public static Instance(args: Partial<RoundStateModel> = defaultRoundState): RoundState {
 		return this._instance || (this._instance = new this(args));
 	}
+	public static getCurrent(): RoundStateModel {
+		let currentState;
+		RoundState.Instance().subscribe((_currentState) => (currentState = _currentState))();
+		return currentState;
+	}
 	private constructor(defaultState: Partial<RoundStateModel> = defaultRoundState) {
 		let initialState = { ...defaultRoundState, ...defaultState };
 		let localState = null;
