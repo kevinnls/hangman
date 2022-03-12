@@ -27,12 +27,17 @@ class RoundState {
 			if (browser) localStorage.setItem('roundstate', JSON.stringify(currentState));
 		});
 	}
-	public registerKeyPress(key, isCorrect) {
+	public registerKeyPress(key: string, isCorrect: boolean): void {
 		this.update((_) => {
 			const newState = { ..._ };
 			newState.guessedLetters.push(key);
-			if (isCorrect) newState.correctLetters.push(key);
-			if (isCorrect) newState.dashes = this.calculateDashes(newState.word, newState.correctLetters);
+			if (isCorrect) {
+				newState.correctLetters.push(key);
+				newState.dashes = this.calculateDashes(newState.word, newState.correctLetters);
+			} else {
+				// calculate lostLifeCount
+				newState.lostLifeCount = newState.guessedLetters.length - newState.correctLetters.length;
+			}
 			return newState;
 		});
 	}
