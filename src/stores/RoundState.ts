@@ -41,19 +41,25 @@ class RoundState {
 			return newState;
 		});
 	}
-	public setWord(word) {
-		this.update((_) => {
-			return { ..._, word: word };
+	public reset(): void {
+		this.update((_: RoundStateModel) => {
+			return { ...defaultRoundState, word: _.word, dashes: this.calculateDashes(_.word) };
 		});
 	}
-	subscribe;
+	public setWord(word: string): void {
+		this.update(() => {
+			return { ...defaultRoundState, word: word };
+		});
+	}
+	public subscribe;
 	private update;
 	private set;
 	//private _dashes: string;
-	private calculateDashes(word: string, correctLetters: string[]): string {
-		const regex = new RegExp(`[^${correctLetters.join('')}]`, 'ig');
-
-		return word.replaceAll(regex, '_');
+	private calculateDashes(word: string, correctLetters: string[] = []): string {
+		if (correctLetters?.length > 0) {
+			const regex = new RegExp(`[^${correctLetters.join('')}]`, 'ig');
+			return word.replaceAll(regex, '_');
+		} else return '_'.repeat(word.length);
 	}
 }
 
