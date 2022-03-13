@@ -6,13 +6,13 @@
 	import { Deck } from '../models/Deck';
 	import { GameState } from '../stores/GameState';
 	import { RoundState } from '../stores/RoundState';
-	import { keyInputHandler } from '../utils/keyInputHandler';
 
 	const deck = new Deck(sampleDb.deck, sampleDb.meta.ordered);
-	const roundState = RoundState.Instance({ word: deck.current.word });
+	const roundState = RoundState.Instance({
+		word: deck.current.word,
+		maxLifeCount: sampleDb.meta.maxLives
+	});
 	const gameState = GameState.Instance({ maxLives: sampleDb.meta.maxLives });
-
-	if (browser) window.addEventListener('keypress', keyInputHandler);
 </script>
 
 <header>
