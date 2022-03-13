@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { RoundState } from '../stores/RoundState';
 	import UserInputForm from './UserInputForm.svelte';
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+
 	const roundState = RoundState.Instance();
 	let isInputDisabled = false;
 	let inputPlaceholderText = 'Enter a character';
@@ -15,6 +18,8 @@
 			case 'loss':
 				break;
 		}
+		//send message to root component saying "next"
+		dispatch('nextword');
 	}
 	roundState.subscribe((_) => {
 		switch (_.state) {

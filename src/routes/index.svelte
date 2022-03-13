@@ -7,12 +7,15 @@
 	import { GameState } from '../stores/GameState';
 	import { RoundState } from '../stores/RoundState';
 
-	const deck = new Deck(sampleDb.deck, sampleDb.meta.ordered);
+	const deck = new Deck(sampleDb.deck, sampleDb.meta.ordered); //or get from localStorage
 	const roundState = RoundState.Instance({
 		word: deck.current.word,
 		maxLifeCount: sampleDb.meta.maxLives
 	});
 	const gameState = GameState.Instance({ maxLives: sampleDb.meta.maxLives });
+	function changeToNextWord(){
+		console.log("YESSSS")
+	}
 </script>
 
 <header>
@@ -20,7 +23,7 @@
 </header>
 
 <main>
-	<App />
+	<App on:nextword={changeToNextWord} />
 </main>
 
 <Footer />

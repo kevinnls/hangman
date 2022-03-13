@@ -13,4 +13,4 @@
 <LivesTracker lostLivesCount={$roundState.lostLifeCount} maxLives={$gameState.maxLives} />
 <WordDashes dashes={$roundState.dashes} />
 
-<Controls />
+<Controls on:nextword />
