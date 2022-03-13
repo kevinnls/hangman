@@ -6,6 +6,7 @@
 	import { Deck } from '../models/Deck';
 	import { GameState } from '../stores/GameState';
 	import { RoundState } from '../stores/RoundState';
+	import { declareResults } from '../utils/declareResults';
 
 	const deck = new Deck(sampleDb.deck, sampleDb.meta.ordered); //or get from localStorage
 	const roundState = RoundState.Instance({
@@ -13,8 +14,12 @@
 		maxLifeCount: sampleDb.meta.maxLives
 	});
 	const gameState = GameState.Instance({ maxLives: sampleDb.meta.maxLives });
-	function changeToNextWord(){
-		console.log("YESSSS")
+	function changeToNextWord() {
+		console.trace('how');
+		const nextCard = deck.next();
+		console.log(nextCard);
+		if (!nextCard.IS_END_CARD) RoundState.Instance().setWord(nextCard.word);
+		else declareResults('testing result');
 	}
 </script>
 
