@@ -1,6 +1,6 @@
 services:
   dev:
-    image: kevinnls/node_non-root:with-git
+    image: kevinnls/node-unprivileged:alpine
     build: .
     user: node
     volumes:
