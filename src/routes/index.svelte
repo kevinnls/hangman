@@ -4,6 +4,10 @@
 	import * as sampleDb from '../const/sampleDb.json';
 </script>
 
+<svelte:head>
+	<title>Hangman | kevinnlsamuel.com</title>
+</svelte:head>
+
 <header>
 	<h1>Hangman</h1>
 </header>
